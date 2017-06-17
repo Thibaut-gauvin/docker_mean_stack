@@ -1,10 +1,13 @@
-var express     = require('express');
-var app         = express();
-var env         = require('node-env-file');
-var bodyParser  = require('body-parser');
-var mongoose    = require ('mongoose');
+var express = require('express'),
+  app = express(),
+  port = process.env.PORT || 3000,
+  env         = require('node-env-file'),
+  mongoose = require('mongoose'),
+  Task = require('./hotelModel'),
+  bodyParser = require('body-parser');
 
-app.use(bodyParser.urlencoded({extended: true}));
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://mongo/' + process.env.MONGODB_DATABASE);
 
 /**
  * Load vars from .env files
@@ -12,38 +15,13 @@ app.use(bodyParser.urlencoded({extended: true}));
  */
 env(__dirname + '/../.env', { overwrite: true });
 
-/**
- * Init th database connection
- */
-mongoose.connect('mongodb://mongo/' + process.env.MONGODB_DATABASE);
 
-/**
- * Routes
- */
-var routes = {
-    "default": "/",
-    "static":  "/static"
-};
-
-/**
- * Home
- */
-app.get('/', function (req, res) {
-    res.send('HELLO WORLD !');
-});
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
 
-/**
- * Serve static files
- */
-app.use(routes.static, express.static('public'));
-
-/**
- * Handle wrong url
- */
-app.use(function(req, res) {
-    res.send('ERROR 404');
-});
+var routes = require('./hotelRoutes');
+routes(app);
 
 /**
  * Start server
