@@ -1,0 +1,17 @@
+# Env file
+/.env
+
+# PhpStorm
+/.idea
+
+# NodeJs
+/node_modules/
+npm-debug.log
+
+# Bower files
+/bower_components/
+
+# Docker
+/.data/
+
+!.gitkeep
