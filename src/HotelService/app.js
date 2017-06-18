@@ -8,7 +8,7 @@ var express     = require('express'),
  * Load vars from .env files
  * Any .env vars are accessible trough the "process.env.SOME_VAR"
  */
-env(__dirname + '/../.env', { overwrite: true });
+env(__dirname + '/../../.env', { overwrite: true });
 
 /** Init the database connection */
 var database = require('./config/db');
@@ -22,7 +22,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 /** Configure routes */
-require('./hotelRoutes')(app);
+require('./routes/hotelRoutes')(app);
 
 /** Start server */
 app.listen(process.env.NODE_INTERNAL_PORT, function () {

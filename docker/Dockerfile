@@ -1,7 +1,7 @@
 FROM ubuntu:14.04
 
-ARG DOCKER_USER
-ARG NODE_PORT
+ARG DOCKER_USER=devops
+ARG NODE_PORT=3000
 
 # Install Base for dev
 RUN apt-get update \

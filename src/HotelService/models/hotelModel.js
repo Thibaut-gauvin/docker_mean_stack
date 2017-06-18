@@ -9,13 +9,20 @@ var HotelSchema = new Schema({
         Required: 'Hotel name missing'
     },
     address: {
-        type: String
+        type: String,
+        Required: 'Hotel address missing'
     },
     phoneNumber: {
-        type: String
+        type: String,
+        Required: 'Hotel phone number missing'
     },
     roomQuantity: {
-        type: Number
+        type: Number,
+        Required: 'Hotel room quantity missing'
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now
     }
 });
 

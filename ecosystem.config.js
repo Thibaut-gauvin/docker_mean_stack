@@ -5,8 +5,8 @@ module.exports = {
      */
     apps : [
         {
-            name            : "web_service",
-            script          : "./src/app.js",
+            name            : "hotel_service",
+            script          : "./src/HotelService/app.js",
             watch           : true,
             ignore_watch    : [
                 "node_modules",

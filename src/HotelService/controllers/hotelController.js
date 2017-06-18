@@ -1,7 +1,7 @@
 'use strict';
 
 var mongoose = require('mongoose'),
-    Hotels = require('./hotelModel'),
+    Hotels = require('../models/hotelModel'),
     Hotel = mongoose.model('Hotels');
 
 /** List all hotel */
@@ -38,7 +38,7 @@ exports.read_an_hotel = function(req, res) {
 
 /** Update given hotel */
 exports.update_an_hotel = function(req, res) {
-    Hotel.findOneAndUpdate(req.params.hotelId, req.body, {new: true}, function(err, hotel) {
+    Hotel.findOneAndUpdate(req.params.hotelId, req.body, { new: false }, function(err, hotel) {
         if (err)
             res.send(err);
 
