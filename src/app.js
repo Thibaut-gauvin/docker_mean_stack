@@ -1,9 +1,8 @@
 var express     = require('express'),
-    app           = express(),
-    env           = require('node-env-file'),
-    mongoose      = require('mongoose'),
-    Task          = require('./hotelModel'),
-    bodyParser    = require('body-parser');
+    app         = express(),
+    env         = require('node-env-file'),
+    mongoose    = require('mongoose'),
+    bodyParser  = require('body-parser');
 
 /**
  * Load vars from .env files
@@ -11,21 +10,21 @@ var express     = require('express'),
  */
 env(__dirname + '/../.env', { overwrite: true });
 
-/**
- * Init th database connection
- */
+/** Init the database connection */
+var database = require('./config/db');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://'+ process.env.MONGODB_USER + ':' + process.env.MONGODB_PASS + '@mongo:' + process.env.MONGODB_PORT + '/' + process.env.MONGODB_DATABASE);
+mongoose.connect(database.url);
 
-app.use(bodyParser.urlencoded({ extended: true }));
+/** Parse application/json */
 app.use(bodyParser.json());
 
-var routes = require('./hotelRoutes');
-routes(app);
+/** Parse application/x-www-form-urlencoded */
+app.use(bodyParser.urlencoded({ extended: true }));
 
-/**
- * Start server
- */
+/** Configure routes */
+require('./hotelRoutes')(app);
+
+/** Start server */
 app.listen(process.env.NODE_INTERNAL_PORT, function () {
     console.log('Application started at http://localhost:' + process.env.NODE_EXTERNAL_PORT + ' !');
     console.log('Environment is : [' + process.env.NODE_ENV + ']');
