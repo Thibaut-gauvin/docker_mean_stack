@@ -54,7 +54,7 @@ remove: stop
 #####
 # Start new bash terminal inside the app Container
 ssh: start
-	$(DOCKER_COMPOSE) run app bash
+	$(DOCKER_COMPOSE) run hotel_service bash
 
 #####
 # Display logs of the current running containers (Press "Ctrl + c" to exit)
@@ -69,4 +69,4 @@ clean-containers:
 #####
 # Provision app for the first use
 init: start
-	$(DOCKER_COMPOSE) run app /bin/sh -ec '/entrypoint.sh'
+	$(DOCKER_COMPOSE) run hotel_service /bin/sh -ec '/entrypoint.sh'
